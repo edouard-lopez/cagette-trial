@@ -12,6 +12,7 @@ class Main{
                 var output = {
                     message : "Hello"
                 };
+
                 Sys.print(Json.stringify(output));
 
             default :

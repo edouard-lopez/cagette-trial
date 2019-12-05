@@ -1,6 +1,8 @@
 
 -cp src
 -lib jstack
-
+-D JSTACK_HAXE_DEV
+-D JSTACK_FORMAT=vscode
+-debug
 -php www
 -main Main
