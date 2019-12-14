@@ -1,5 +1,6 @@
 import php.Web;
 import haxe.Json;
+import tink.Json;
 
 typedef Survey = {
 	name:String,
@@ -11,7 +12,13 @@ enum Question {
 	@:json({'type': 'numeric'}) Numeric(options:Null<String>, answer:Int, label:String);
 }
 
-typedef Questionnaire = {
+typedef AnswerContent = {
+	survey:Survey,
+	questions:Array<Question>,
+}
+
+typedef Answer = {
+	uuid:String,
 	survey:Survey,
 	questions:Array<Question>,
 }
@@ -19,7 +26,9 @@ typedef Questionnaire = {
 class Main {
 	public static function readFileContent(filePath:String) {
 		var content:String = sys.io.File.getContent(filePath);
-		return haxe.Json.parse(content);
+		var parsedContent:AnswerContent = tink.Json.parse(content);
+
+		return parsedContent;
 	}
 
 	public static function getAnswerFilenames(directory:String = "path/to/") {
@@ -38,16 +47,19 @@ class Main {
 	}
 
 	public static function getAllAnswersContent(fichiers:Array<String>) {
-		var questionnaires:Array<Dynamic> = [];
+		var answers:Array<Answer> = [];
 
 		for (fichier in fichiers) {
-			questionnaires.push({
-				name: fichier,
-				content: readFileContent(fichier)
+			var answer:AnswerContent = readFileContent(fichier);
+			var uuid:String = new haxe.io.Path(fichier).file;
+			answers.push({
+				uuid: uuid,
+				survey: answer.survey,
+				questions: answer.questions,
 			});
 		}
 
-		return questionnaires;
+		return answers;
 	}
 
 	public static function main() {
@@ -57,10 +69,12 @@ class Main {
 					message: "Hello World"
 				};
 				Sys.print(Json.stringify(output));
-			case "/reponses":
+			case "/answers":
 				var fichiers = getAnswerFilenames('./data');
-				var questionnaires = getAllAnswersContent(fichiers);
-				Sys.print(questionnaires);
+				var answers = getAllAnswersContent(fichiers);
+				Web.setReturnCode(200);
+				Web.setHeader('Content-Type', 'application/json');
+				Sys.print(tink.Json.stringify(answers));
 
 			default:
 				Web.setReturnCode(404);
