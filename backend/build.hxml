@@ -1,6 +1,7 @@
 
 -cp src
--lib jstack
+-lib jstack 
+-lib tink_json
 -D JSTACK_HAXE_DEV
 -D JSTACK_FORMAT=vscode
 -debug

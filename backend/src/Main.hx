@@ -1,10 +1,25 @@
 import php.Web;
 import haxe.Json;
 
+typedef Survey = {
+	name:String,
+	code:String,
+}
+
+enum Question {
+	@:json({'type': 'qcm'}) Qcm(options:Array<String>, answer:Array<Bool>, label:String);
+	@:json({'type': 'numeric'}) Numeric(options:Null<String>, answer:Int, label:String);
+}
+
+typedef Questionnaire = {
+	survey:Survey,
+	questions:Array<Question>,
+}
+
 class Main {
 	public static function readFileContent(filePath:String) {
 		var content:String = sys.io.File.getContent(filePath);
-		trace(content);
+		return haxe.Json.parse(content);
 	}
 
 	public static function getAnswerFilenames(directory:String = "path/to/") {
@@ -23,7 +38,16 @@ class Main {
 	}
 
 	public static function getAllAnswersContent(fichiers:Array<String>) {
-		
+		var questionnaires:Array<Dynamic> = [];
+
+		for (fichier in fichiers) {
+			questionnaires.push({
+				name: fichier,
+				content: readFileContent(fichier)
+			});
+		}
+
+		return questionnaires;
 	}
 
 	public static function main() {
@@ -34,7 +58,9 @@ class Main {
 				};
 				Sys.print(Json.stringify(output));
 			case "/reponses":
-				Sys.print(getAnswerFilenames('./data'));
+				var fichiers = getAnswerFilenames('./data');
+				var questionnaires = getAllAnswersContent(fichiers);
+				Sys.print(questionnaires);
 
 			default:
 				Web.setReturnCode(404);
