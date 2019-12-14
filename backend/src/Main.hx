@@ -1,29 +1,19 @@
 import php.Web;
 import haxe.Json;
 
-class Main{
+class Main {
+	public static function main() {
+		switch (Web.getURI()) {
+			case "/":
+				var output = {
+					message: "Hello"
+				};
 
-    public static function main(){
-        
-        switch(Web.getURI()){
+				Sys.print(Json.stringify(output));
 
-            case "/" :
-            
-                var output = {
-                    message : "Hello"
-                };
-
-                Sys.print(Json.stringify(output));
-
-            default :
-
-                Web.setReturnCode(404);
-                Sys.print("What ?"); 
-
-
-        }
-
-    }
-
-
+			default:
+				Web.setReturnCode(404);
+				Sys.print("What ?");
+		}
+	}
 }
