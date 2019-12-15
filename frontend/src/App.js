@@ -42,10 +42,21 @@ function App() {
     <div className="App">
       <CagetteHero />
       <Section>
-        <Container>
+        <Container style={{ maxWidth: "1024px" }}>
           <Box>
             <Columns isCentered>
-              <Column isSize="1/10">
+              <Column>
+                {selectedStat || selectedStat === 0 ? (
+                  <>
+                    <p>
+                      <b>Moyenne&thinsp;:</b>
+                      <span>&nbsp;{stats[selectedStat].numeric}&thinsp;🥕</span>
+                    </p>
+                    <StatsGraph data={stats[selectedStat || 0]} />
+                  </>
+                ) : null}
+              </Column>
+              <Column isSize="narrow">
                 <Field hasTextAlign="centered">
                   <Label>Questionnaire:</Label>
                   <Control hasTextAlign="centered">
@@ -61,17 +72,6 @@ function App() {
                   </Control>
                 </Field>
                 {/* <QuestionnaireSelector /> */}
-              </Column>
-              <Column>
-                {selectedStat || selectedStat === 0 ? (
-                  <>
-                    <p>
-                      <b>Moyenne&thinsp;:</b>
-                      <span>&nbsp;{stats[selectedStat].numeric}&thinsp;🥕</span>
-                    </p>
-                    <StatsGraph data={stats[selectedStat || 0]} />
-                  </>
-                ) : null}
               </Column>
             </Columns>
           </Box>

@@ -12,7 +12,7 @@ import {
 
 function StatsGraph({ data }) {
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={400}>
       <BarChart
         data={data.qcm}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
