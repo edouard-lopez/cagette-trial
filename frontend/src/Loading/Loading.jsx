@@ -3,7 +3,7 @@ import { Container, Section, Subtitle, Title } from "bloomer";
 import { faSeedling } from '@fortawesome/free-solid-svg-icons'
 import React from "react";
 
-function Loading() {
+export default function Loading() {
   return (
     <Section style={{ height: "100vh" }} hasTextAlign="centered">
       <Container >
@@ -17,5 +17,3 @@ function Loading() {
     </Section>
   );
 }
-
-export default Loading;

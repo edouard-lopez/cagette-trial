@@ -3,7 +3,6 @@ import {
   Container,
   Control,
   Field,
-  Hero,
   HeroBody,
   Label,
   Section,
@@ -16,6 +15,7 @@ import "./assets/App.css";
 import Loading from "./Loading/Loading";
 import * as Parser from "./parser";
 import StatsGraph from "./StatsGraph";
+import CagetteHero from "./Hero/Hero";
 
 function App() {
   const [error, setError] = useState(false);
@@ -45,13 +45,7 @@ function App() {
 
   return (
     <div className="App">
-      <Hero isColor="success" isSize="medium">
-        <HeroBody>
-          <Container hasTextAlign="centered">
-            <Title>Cagette 🥕</Title>
-          </Container>
-        </HeroBody>
-      </Hero>
+      <CagetteHero />
       <Section>
         <Container isFluid isBrand>
           <Field hasTextAlign="centered">
