@@ -10,7 +10,7 @@ import {
   Section,
   Select
 } from "bloomer";
-import "bulma";
+import "bulma/css/bulma.css";
 import React, { useEffect, useState } from "react";
 import "./assets/App.css";
 import CagetteHero from "./Hero/Hero";

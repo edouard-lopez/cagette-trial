@@ -20,7 +20,7 @@ serve-frontend: build-frontend
 		--rm \
 		--interactive \
 		--tty \
-		--volume=$$(pwd)/frontend:/usr/src/app/ \
+		--volume=$$(pwd)/frontend:/app/ \
 		--publish 3000:3000 \
 		cagette-frontend
 
@@ -30,7 +30,7 @@ test-frontend: build-frontend
 		--rm \
 		--interactive \
 		--tty \
-		--volume=$$(pwd)/frontend:/usr/src/app/ \
+		--volume=$$(pwd)/frontend:/app/ \
 		--publish 3000:3000 \
 		cagette-frontend \
 		yarn test
