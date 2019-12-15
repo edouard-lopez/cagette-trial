@@ -1,40 +1,35 @@
 import axios from "axios";
 import {
+  Box,
+  Column,
+  Columns,
   Container,
   Control,
   Field,
-  HeroBody,
   Label,
   Section,
-  Select,
-  Title
+  Select
 } from "bloomer";
 import "bulma";
 import React, { useEffect, useState } from "react";
 import "./assets/App.css";
+import CagetteHero from "./Hero/Hero";
 import Loading from "./Loading/Loading";
 import * as Parser from "./parser";
 import StatsGraph from "./StatsGraph";
-import CagetteHero from "./Hero/Hero";
+// import QuestionnaireSelector from "./QuestionnaireSelector";
 
 function App() {
-  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState([]);
   const [selectedStat, setSelectedStat] = useState();
 
   useEffect(() => {
     const fetchStats = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/stats");
-        setStats(Parser.restructure(response.data));
-        setLoading(false);
-        setSelectedStat(0);
-        setError(false);
-      } catch (error) {
-        setLoading(false);
-        setError(true);
-      }
+      const response = await axios.get("http://localhost:8080/stats");
+      setStats(Parser.restructure(response.data));
+      setLoading(false);
+      setSelectedStat(0);
     };
     fetchStats();
   }, []);
@@ -47,36 +42,39 @@ function App() {
     <div className="App">
       <CagetteHero />
       <Section>
-        <Container isFluid isBrand>
-          <Field hasTextAlign="centered">
-            <Label>Choisir un questionnaire:</Label>
-            <Control hasTextAlign="centered">
-              <Select
-                value={selectedStat}
-                onChange={event => setSelectedStat(event.target.value)}
-              >
-                <option disabled selected>
-                  None
-                </option>
-                {stats.map((stat, index) => (
-                  <option value={index}>{stat.code}</option>
-                ))}
-              </Select>
-            </Control>
-          </Field>
-        </Container>
-      </Section>
-      <Section>
-        <Container isFluid isBrand>
-          {selectedStat ? (
-            <>
-              <p>
-                <b>Moyenne&thinsp;:</b>
-                <span>&nbsp;{stats[selectedStat].numeric}&thinsp;🥕</span>
-              </p>
-              <StatsGraph data={stats[selectedStat || 0]} />
-            </>
-          ) : null}
+        <Container>
+          <Box>
+            <Columns isCentered>
+              <Column isSize="1/10">
+                <Field hasTextAlign="centered">
+                  <Label>Questionnaire:</Label>
+                  <Control hasTextAlign="centered">
+                    <Select
+                      value={selectedStat}
+                      defaultValue={0}
+                      onChange={event => setSelectedStat(event.target.value)}
+                    >
+                      {stats.map((stat, index) => (
+                        <option value={index}>{stat.code}</option>
+                      ))}
+                    </Select>
+                  </Control>
+                </Field>
+                {/* <QuestionnaireSelector /> */}
+              </Column>
+              <Column>
+                {selectedStat || selectedStat === 0 ? (
+                  <>
+                    <p>
+                      <b>Moyenne&thinsp;:</b>
+                      <span>&nbsp;{stats[selectedStat].numeric}&thinsp;🥕</span>
+                    </p>
+                    <StatsGraph data={stats[selectedStat || 0]} />
+                  </>
+                ) : null}
+              </Column>
+            </Columns>
+          </Box>
         </Container>
       </Section>
     </div>
