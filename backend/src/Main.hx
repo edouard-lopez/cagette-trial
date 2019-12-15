@@ -27,6 +27,7 @@ class Main {
 					}
 				];
 				Web.setReturnCode(200);
+				Web.setHeader('Access-Control-Allow-Origin', '*');
 				Web.setHeader('Content-Type', 'application/json');
 				Sys.print(Json.stringify(output));
 			case "/answers":
