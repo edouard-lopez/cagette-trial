@@ -6,7 +6,7 @@ function CagetteHero() {
     <Hero isColor="success" isSize="medium">
       <HeroBody>
         <Container hasTextAlign="centered">
-          <Title>Cagette 🥕</Title>
+          <Title>Cagette <span role="img" aria-label="carotte">🥕</span> </Title>
         </Container>
       </HeroBody>
     </Hero>
