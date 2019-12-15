@@ -33,8 +33,8 @@ class StatsGraph extends Component {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="count" barSize={20} fill="#8884d8" />
-        {/* <Line type="monotone" dataKey="predicted" stroke="#82ca9d" /> */}
+        <Bar dataKey="count" barSize={20} fill="#82ca9d" />
+        {/* <Line type="monotone" dataKey="predicted" stroke="#8884d8" /> */}
       </BarChart>
     );
   }

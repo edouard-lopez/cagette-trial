@@ -1,9 +1,21 @@
-import React, { useState, useEffect } from "react";
-import "./assets/App.css";
 import axios from "axios";
+import {
+  Container,
+  Control,
+  Field,
+  Hero,
+  HeroBody,
+  Label,
+  Section,
+  Select,
+  Title
+} from "bloomer";
+import "bulma";
+import React, { useEffect, useState } from "react";
+import "./assets/App.css";
 import Loading from "./Loading/Loading";
-import StatsGraph from "./StatsGraph";
 import * as Parser from "./parser";
+import StatsGraph from "./StatsGraph";
 
 function App() {
   const [error, setError] = useState(false);
@@ -17,6 +29,7 @@ function App() {
         const response = await axios.get("http://localhost:8080/stats");
         setStats(Parser.restructure(response.data));
         setLoading(false);
+        setSelectedStat(0);
         setError(false);
       } catch (error) {
         setLoading(false);
@@ -27,32 +40,51 @@ function App() {
   }, []);
 
   if (loading) {
-    return <Loading loading />;
+    return <Loading />;
   }
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Statistiques</h1>
-        <select
-          value={selectedStat}
-          onChange={event => setSelectedStat(event.target.value)}
-        >
-          <option>Choisir un questionnaire</option>
-          {stats.map((stat, index) => (
-            <option value={index}>{stat.code}</option>
-          ))}
-        </select>
-        {selectedStat ? (
-          <>
-            <p>
-              <b>Numeric:</b>
-              <span>{stats[selectedStat].numeric}</span>
-            </p>
-            <StatsGraph data={stats[selectedStat || 0]} />
-          </>
-        ) : null}
-      </header>
+      <Hero isColor="success" isSize="medium">
+        <HeroBody>
+          <Container hasTextAlign="centered">
+            <Title>Cagette 🥕</Title>
+          </Container>
+        </HeroBody>
+      </Hero>
+      <Section>
+        <Container isFluid isBrand>
+          <Field hasTextAlign="centered">
+            <Label>Choisir un questionnaire:</Label>
+            <Control hasTextAlign="centered">
+              <Select
+                value={selectedStat}
+                onChange={event => setSelectedStat(event.target.value)}
+              >
+                <option disabled selected>
+                  None
+                </option>
+                {stats.map((stat, index) => (
+                  <option value={index}>{stat.code}</option>
+                ))}
+              </Select>
+            </Control>
+          </Field>
+        </Container>
+      </Section>
+      <Section>
+        <Container isFluid isBrand>
+          {selectedStat ? (
+            <>
+              <p>
+                <b>Moyenne&thinsp;:</b>
+                <span>&nbsp;{stats[selectedStat].numeric}&thinsp;🥕</span>
+              </p>
+              <StatsGraph data={stats[selectedStat || 0]} />
+            </>
+          ) : null}
+        </Container>
+      </Section>
     </div>
   );
 }
