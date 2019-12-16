@@ -1,3 +1,5 @@
+package;
+
 import php.Web;
 import haxe.Json;
 
