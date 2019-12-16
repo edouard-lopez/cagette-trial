@@ -2,23 +2,23 @@
 
 ![preview](preview.png)
 
-### Run
+## Run
 
     make serve-backend
     make serve-frontend
 
-### Frontend
+## Frontend
 
 Open [localhost:3000/](http://localhost:3000)
 
-### Backend
+## Backend
 
 Open `localhost:8080`:
 
 * [localhost:8080/stats](http://localhost:8080/stats) for statistics (aggregated) ;
 * [localhost:8080/answers](http://localhost:8080/answers) for all answers.
 
-### Tests
+## Tests
 
 Everything is run in a container
 
