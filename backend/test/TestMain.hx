@@ -5,14 +5,6 @@ import massive.munit.client.JUnitReportClient;
 import massive.munit.client.SummaryReportClient;
 import massive.munit.TestRunner;
 
-// class Main {
-// 	static function main() {
-// 		var r = new haxe.unit.TestRunner();
-// 		r.add(new StatsTestCase());
-// 		r.run();
-// 	}
-// }
-
 /**
  * Auto generated Test Application.
  * Refer to munit command line tool for more information (haxelib run munit)
