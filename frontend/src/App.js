@@ -24,13 +24,14 @@ function App() {
   const [stats, setStats] = useState([]);
   const [selectedStat, setSelectedStat] = useState();
 
+  const fetchStats = async () => {
+    const response = await axios.get("http://localhost:8080/stats");
+    setStats(Parser.restructure(response.data));
+    setLoading(false);
+    setSelectedStat(0);
+  };
+
   useEffect(() => {
-    const fetchStats = async () => {
-      const response = await axios.get("http://localhost:8080/stats");
-      setStats(Parser.restructure(response.data));
-      setLoading(false);
-      setSelectedStat(0);
-    };
     fetchStats();
   }, []);
 
@@ -39,14 +40,14 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" role="app-container">
       <CagetteHero />
       <Section>
         <Container style={{ maxWidth: "1024px" }}>
           <Box>
             <Columns isCentered>
               <Column>
-                {selectedStat || selectedStat === 0 ? (
+                {(selectedStat || selectedStat === 0) && stats.length > 0 ? (
                   <>
                     <p>
                       <b>Moyenne&thinsp;:</b>
