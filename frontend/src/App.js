@@ -17,7 +17,7 @@ import CagetteHero from "./Hero/Hero";
 import Loading from "./Loading/Loading";
 import Moyenne from "./Moyenne/Moyenne";
 import * as Parser from "./parser";
-import StatsGraph from "./StatsGraph";
+import StatsGraph from "./StatsGraph/StatsGraph";
 // import QuestionnaireSelector from "./QuestionnaireSelector";
 
 function App() {
@@ -31,6 +31,9 @@ function App() {
     setLoading(false);
     setSelectedStat(0);
   };
+
+  const hasStats = () =>
+    (selectedStat || selectedStat === 0) && stats.length > 0;
 
   useEffect(() => {
     fetchStats();
@@ -48,10 +51,10 @@ function App() {
           <Box>
             <Columns isCentered>
               <Column>
-                {(selectedStat || selectedStat === 0) && stats.length > 0 ? (
+                {hasStats() ? (
                   <>
                     <Moyenne stat={stats[selectedStat]} />
-                    <StatsGraph data={stats[selectedStat || 0]} />
+                    <StatsGraph stat={stats[selectedStat || 0]} />
                   </>
                 ) : null}
               </Column>
