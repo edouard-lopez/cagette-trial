@@ -4,6 +4,7 @@
 -lib tink_json
 -D JSTACK_HAXE_DEV
 -D JSTACK_FORMAT=vscode
+-D no-deprecation-warnings
 -debug
 -php www
 -main Main
