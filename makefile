@@ -8,8 +8,16 @@ serve-backend: build-backend
 		--interactive \
 		--tty \
 		--volume=$$(pwd)/backend/src:/usr/src/app/src \
+		--volume=$$(pwd)/backend/test:/usr/src/app/test \
 		--publish 8080:8080 \
 		cagette-backend
+
+test-backend: build-backend
+	 docker exec \
+		--interactive \
+		--tty \
+		cagette-backend \
+		haxelib run munit test -php
 
 build-frontend:
 	docker build -t cagette-frontend ./frontend
@@ -25,12 +33,8 @@ serve-frontend: build-frontend
 		cagette-frontend
 
 test-frontend: build-frontend
-	docker run \
-		--name cagette-frontend \
-		--rm \
+	 docker exec \
 		--interactive \
 		--tty \
-		--volume=$$(pwd)/frontend:/app/ \
-		--publish 3000:3000 \
 		cagette-frontend \
 		yarn test

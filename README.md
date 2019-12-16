@@ -1,6 +1,7 @@
 # alilo-tech-challenge
 
 ![preview](preview.png)
+
 ### Run
 
     make serve-backend
@@ -16,3 +17,10 @@ Open `localhost:8080`:
 
 * [localhost:8080/stats](http://localhost:8080/stats) for statistics (aggregated) ;
 * [localhost:8080/answers](http://localhost:8080/answers) for all answers.
+
+### Tests
+
+Everything is run in a container
+
+    make test-backend
+    make test-frontend
