@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import "./assets/App.css";
 import CagetteHero from "./Hero/Hero";
 import Loading from "./Loading/Loading";
+import Moyenne from "./Moyenne/Moyenne";
 import * as Parser from "./parser";
 import StatsGraph from "./StatsGraph";
 // import QuestionnaireSelector from "./QuestionnaireSelector";
@@ -49,10 +50,7 @@ function App() {
               <Column>
                 {(selectedStat || selectedStat === 0) && stats.length > 0 ? (
                   <>
-                    <p>
-                      <b>Moyenne&thinsp;:</b>
-                      <span>&nbsp;{stats[selectedStat].numeric}&thinsp;🥕</span>
-                    </p>
+                    <Moyenne stat={stats[selectedStat]} />
                     <StatsGraph data={stats[selectedStat || 0]} />
                   </>
                 ) : null}

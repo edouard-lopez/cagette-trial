@@ -2,8 +2,8 @@ import React from "react";
 import { render } from "@testing-library/react";
 import Loading from "./Loading";
 
-test("renders learn react link", () => {
+test("renders <Loading>", () => {
   const { getByText } = render(<Loading />);
-  const linkElement = getByText(/Chargement/i); // not ideal, need business value
-  expect(linkElement).toBeInTheDocument();
+
+  expect(getByText(/Chargement/i)).toBeInTheDocument();
 });
